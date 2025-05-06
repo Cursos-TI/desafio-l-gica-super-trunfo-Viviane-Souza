@@ -1,10 +1,12 @@
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
 int main (){
   //base das informações
   char estado1[50], estado2[50], carta1[3], carta2[3], cidade1[50], cidade2[50];
   int populacao1, populacao2, pontoTuristico1, pontoTuristico2, res1, res2, res3, res4, res5,res6, res7;
-  float km1, km2, pib1, pib2, densidade1, densidade2, media1, media2, mediapib1, mediapib2, superPoder1, superPoder2;
+  float km1, km2, pib1, pib2, media1, media2, mediapib1, mediapib2, superPoder1, superPoder2;
   
   //printf - solicita as informações - scanf busca as informações
   printf("Digite 2 números de carta de 01 a 04 (ex: 03 'enter' 02): \n");
@@ -15,13 +17,13 @@ int main (){
     
   printf("Digite 2 Cidades (ex: Curitiba 'enter' Santos): \n");
   getchar(); //limpa o buffer
-  scanf("%49[^\n] %49[^\n]", cidade1, cidade2);
+  scanf("%49[^\n] %49[^\n]", &cidade1, &cidade2);
   
   printf("Digite o número de População das 2 cidades (ex: 123 'enter' 456): \n");
   scanf("%d %d", &populacao1, &populacao2);
 
   printf("Digite o valor de quilômetros das 2 cidades (ex: 123.00 'enter' 456.00): \n");
-  scanf("%e %e", &km1, &km2);
+  scanf("%f %f", &km1, &km2);
   
   printf("Digite o valor do PIB das 2 cidades (ex: 123.00 'enter' 456.00): \n");
   scanf("%f %f", &pib1, &pib2);
@@ -70,7 +72,7 @@ int main (){
  res2 = km1 > km2;
  res3 = pib1 > pib2;
  res4 = pontoTuristico1 > pontoTuristico2;
- res5 = densidade1 > densidade2;
+ res5 = media1 > media2;
  res6 = mediapib1 > mediapib2;
  res7 = superPoder1 > superPoder2;
 
@@ -99,9 +101,9 @@ if(pontoTuristico1 > pontoTuristico2){
   printf("Pontos Turísticos: Carta 2 venceu! (%d)\n", res4);
 } 
 
-if(densidade1 < densidade2){
+if(media1 < media2){
    printf("Densidade Populacional: Carta 1 venceu! (%d)\n", res5);
-} else if (densidade1 > densidade2){
+} else if (media1 > media2){
   printf("Densidade Populacional: Carta 2 venceu! (%d)\n", res5);
 } 
 
@@ -118,17 +120,80 @@ if(superPoder1 > superPoder2){
 } 
 
 printf("Comparação de Cartas (Atributo: Ponto Turistico)\n");
+
 printf("Carta 1 - %s: %d\n", cidade1, pontoTuristico1);
 printf("Carta 2 - %s: %d\n", cidade2, pontoTuristico2);
 
-if (res4){
-    printf("Resultado: Carta 1 (%s) venceu!\n", cidade1);
-}else if (pontoTuristico1 > pontoTuristico2){
-    printf("Resultado: Carta 2 (%s) venceu!\n", cidade2);
+if (res4)
+  printf("Resultado: Carta 1 (%s) venceu!\n", cidade1);
+else if (pontoTuristico1 > pontoTuristico2)
+ printf("Resultado: Carta 2 (%s) venceu!\n", cidade2);
+
+ int jogador1, jogador2, resultado;
+ char tipoComparacao;
+
+ // Inicio de Jogo
+ printf ("Bem Vindo ao jogo Maior, Menor ou Igual!\n");
+ printf ("Você deve escolher um número e o tipo de comparação.\n");
+ printf ("P. PIB.\n");
+ printf ("T. Ponto Turistico.\n");
+ printf ("A. Area.\n");
+
+ printf("Escolha a comparação: ");
+ scanf ("%d", &tipoComparacao);
+
+
+ switch (tipoComparacao)
+ {
+ case 'P':
+ case 'p':
+    resultado = pib1 > pib2 ? 1 : 0;
+    if (resultado == 1)
+    {
+      printf("Carta 1 ganhou!\n");
+    } else {
+      printf("Carta 2 ganhou!\n");
+    }
+    
+    break;
+ case 'T':
+ case 't':
+    resultado = pontoTuristico1 > pontoTuristico2 ? 1 : 0;
+    if (resultado == 1)
+    {
+      printf("Carta 1 ganhou!\n");
+    } else {
+      printf("Carta 2 ganhou!\n");
+    }
+    break;
+ case 'A':
+ case 'a':
+    resultado = km1 > km2 ? 1 : 0;
+    if (resultado == 1)
+    {
+      printf("Carta 1 ganhou!\n");
+    } else {
+      printf("Carta 2 ganhou!\n");
+    }
+    break;    
+ default:
+    printf ("Opção de jogo inválida!\n");
+    break;
+ }
+
+ if (resultado == 1){
+  printf ("Parabéns! Você venceu!\n");
+} else {
+  printf ("Infelizente você perdeu!\n");
 }
 
+printf("A carta vencedora é: %d\n", resultado);
 
-
+ if (resultado == 1){
+    printf ("Você venceu!\n");
+ } else {
+    printf ("Você perdeu!\n");
+ }
 
  return 0;
 
